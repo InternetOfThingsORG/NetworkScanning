@@ -3,20 +3,20 @@
 #include <WiFi.h> //Standard ESP32 Wifi Library
 
 U8X8_SSD1306_128X64_NONAME_SW_I2C screen(/* clock=*/ 15, /* data=*/ 4, /* reset=*/ 16);
-void setup() {
+
+void setupScreen(){
   //Initializing the display
   screen.begin();
-  screen.setFont(u8x8_font_chroma48medium8_r);
+  screen.setFont(u8x8_font_victoriamedium8_r);
   screen.clearDisplay();
-
+}
+void setupWiFi(){
   //Initializing the wifi station mode on the esp32
   WiFi.mode(WIFI_STA); 
   WiFi.disconnect();
   delay(100);
-  screen.setCursor(0,0);
-  screen.print("Station Mode !");
 }
-void loop() {
+void printNetworkDetails() {
   //Scanning the networks
   screen.clear();
   screen.print("Scanning ...");
@@ -41,3 +41,13 @@ void loop() {
     delay(1000);
   }
 }
+
+void setup() {
+  setupScreen();
+  setupWiFi();
+}
+
+void loop() {
+  printNetworkDetails();
+}
+
